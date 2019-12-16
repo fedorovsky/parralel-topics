@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -13,36 +14,64 @@ interface OwnProps {
   onClose: () => void;
 }
 
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  active: {
+    border: '1px solid red',
+  },
+});
+
 const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
+  const classes = useStyles();
   return (
     <div>
       <Drawer open={isOpen} onClose={onClose}>
-        <List>
-          <ListItem button component={NavLink} to="/" onClick={onClose}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Home'} />
-          </ListItem>
-          <ListItem
-            button
-            component={NavLink}
-            to="/topic-list"
-            onClick={onClose}
-          >
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'TopicList'} />
-          </ListItem>
-          <ListItem button component={NavLink} to="/topic" onClick={onClose}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Topic'} />
-          </ListItem>
-        </List>
-        <Divider />
+        <div className={classes.list}>
+          <List>
+            <ListItem
+              button
+              component={NavLink}
+              to="/"
+              exact
+              onClick={onClose}
+              activeClassName={classes.active}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Home'} />
+            </ListItem>
+            <ListItem
+              button
+              component={NavLink}
+              to="/topic-list"
+              exact
+              onClick={onClose}
+              activeClassName={classes.active}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'TopicList'} />
+            </ListItem>
+            <ListItem
+              button
+              component={NavLink}
+              to="/topic"
+              exact
+              onClick={onClose}
+              activeClassName={classes.active}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Topic'} />
+            </ListItem>
+          </List>
+          <Divider />
+        </div>
       </Drawer>
     </div>
   );
