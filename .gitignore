@@ -11,6 +11,8 @@
 # production
 /build
 
+yarn.lock
+
 # misc
 .DS_Store
 .env.local
@@ -19,6 +21,5 @@
 .env.production.local
 
 npm-debug.log*
-yarn.log*
 yarn-debug.log*
 yarn-error.log*

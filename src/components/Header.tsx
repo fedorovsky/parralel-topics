@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import SideNavigation from './SideNavigation';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = () => {
   const classes = useStyles();
+  const [isOpenDrawer, setOpenDrawer] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -38,6 +40,10 @@ const Header = () => {
 
   return (
     <div className={classes.root}>
+      <SideNavigation
+        isOpen={isOpenDrawer}
+        onClose={() => setOpenDrawer(false)}
+      />
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -45,11 +51,12 @@ const Header = () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={() => setOpenDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Photos
+            Parallel Topics
           </Typography>
           <div>
             <IconButton
