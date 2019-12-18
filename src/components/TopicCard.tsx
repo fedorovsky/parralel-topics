@@ -4,6 +4,8 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
@@ -55,9 +57,25 @@ export default function SimpleCard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Prev</Button>
-        <Button size="small">Learn More</Button>
-        <Button size="small">Next</Button>
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          startIcon={<ChevronLeft />}
+        >
+          Prev
+        </Button>
+        <Button size="small" variant="contained" color="primary">
+          Learn More
+        </Button>
+        <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          endIcon={<ChevronRight />}
+        >
+          Next
+        </Button>
       </CardActions>
     </Card>
   );
