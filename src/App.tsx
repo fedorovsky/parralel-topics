@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Header from './components/Header';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import TopicList from './components/routes/TopicList';
 import Topic from './components/routes/Topic';
 import Home from './components/routes/Home';
@@ -17,7 +17,7 @@ const App = () => (
         <Route path="/topic" component={Topic} />
       </Switch>
     </Container>
-    <Footer />
+    {/* <Footer /> */}
   </div>
 );
 
