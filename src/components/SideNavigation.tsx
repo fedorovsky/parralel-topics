@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { NavLink } from 'react-router-dom';
+import { Routes } from '../App';
 
 interface OwnProps {
   isOpen: boolean;
@@ -42,6 +43,19 @@ const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={'Home'} />
+            </ListItem>
+            <ListItem
+              button
+              component={NavLink}
+              to={Routes.themeList}
+              exact
+              onClick={onClose}
+              activeClassName={classes.active}
+            >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={'ThemeList'} />
             </ListItem>
             <ListItem
               button
