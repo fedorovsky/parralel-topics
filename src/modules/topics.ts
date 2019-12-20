@@ -51,6 +51,9 @@ export const themeListSelector = createSelector(
  * Action Creators
  * */
 export const fetchThemes = () => (dispatch: any) => {
+  dispatch({
+    type: THEMES_REQUEST,
+  });
   return fetch(`${process.env.PUBLIC_URL}/mock/themes.json`)
     .then(res => res.json())
     .then(themes => {
