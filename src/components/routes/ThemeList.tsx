@@ -31,3 +31,5 @@ export default connect(state => ({ themes: themeListSelector(state) }), {
   fetchThemes,
   // @ts-ignore
 })(ThemeList);
+
+// https://redux.js.org/recipes/usage-with-typescript/
