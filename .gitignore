@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# build
+/build
+
 yarn.lock
 
 # misc
