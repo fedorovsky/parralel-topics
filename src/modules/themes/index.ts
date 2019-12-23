@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
-import { ApplicationState } from '../../redux/reducer';
+import { RootState } from '../../redux/reducer';
 
 /**
  * Constants
@@ -51,7 +51,7 @@ export { reducer as themesReducer };
 /**
  * Selectors
  * */
-export const stateSelector = (state: ApplicationState) => state.themes;
+export const stateSelector = (state: RootState) => state.themes;
 export const themeListSelector = createSelector(
   stateSelector,
   state => state.list,

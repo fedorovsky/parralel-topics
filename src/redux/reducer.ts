@@ -4,9 +4,9 @@ import { themesReducer, ThemesState } from '../modules/themes';
 import history from '../history';
 
 // The top-level state object
-export interface ApplicationState {
-  themes: ThemesState;
+export interface RootState {
   router: RouterState;
+  themes: ThemesState;
 }
 
 export default combineReducers({

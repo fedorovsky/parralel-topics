@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from '../../redux/reducer';
 import { fetchThemes, themeListSelector } from '../../modules/themes';
 
-interface OwnProps {
-  themes: Array<any>;
-  fetchThemes: () => Promise<any>;
-}
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const ThemeList: React.FC<OwnProps> = ({ fetchThemes, themes }) => {
+type Props = PropsFromRedux & {
+  backgroundColor: string;
+};
+
+const ThemeList: React.FC<Props> = ({ fetchThemes, themes }) => {
   console.log('--------------------', themes);
   return (
     <div>
@@ -26,10 +28,15 @@ const ThemeList: React.FC<OwnProps> = ({ fetchThemes, themes }) => {
   );
 };
 
-// @ts-ignore
-export default connect(state => ({ themes: themeListSelector(state) }), {
-  fetchThemes,
-  // @ts-ignore
-})(ThemeList);
+const connector = connect(
+  (state: RootState) => ({
+    themes: themeListSelector(state),
+  }),
+  {
+    fetchThemes,
+  },
+);
+
+export default connector(ThemeList);
 
 // https://redux.js.org/recipes/usage-with-typescript/
