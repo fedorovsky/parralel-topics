@@ -69,12 +69,7 @@ interface ThemesSuccess {
 }
 type ActionType = ThemesRequest | ThemesSuccess;
 
-type FetchThemeList = ThunkAction<
-  Promise<ActionType>,
-  ThemeState,
-  void,
-  ActionType
->;
+type FetchThemeList = ThunkAction<void, ThemeState, void, ActionType>;
 export const fetchThemeList = (): FetchThemeList => {
   return async (dispatch: Dispatch<ActionType>) => {
     dispatch({
@@ -83,7 +78,7 @@ export const fetchThemeList = (): FetchThemeList => {
     const themes = await fetch(
       `${process.env.PUBLIC_URL}/mock/themes.json`,
     ).then(res => res.json());
-    return dispatch({
+    dispatch({
       type: THEMES_SUCCESS,
       payload: themes,
     });
