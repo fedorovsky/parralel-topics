@@ -9,6 +9,7 @@ import store from './redux/store';
 import theme from './theme';
 import history from './history';
 import * as serviceWorker from './serviceWorker';
+import setPropertyVh from './utils/setPropertyVh';
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
@@ -27,21 +28,4 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-// https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-let vh = window.innerHeight * 0.01;
-document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-window.addEventListener('resize', () => {
-  console.log('resize');
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-});
-
-window.addEventListener(
-  'orientationchange',
-  () => {
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  },
-  false,
-);
+setPropertyVh();
