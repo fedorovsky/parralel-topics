@@ -5,11 +5,14 @@ import { fetchThemes, themeListSelector } from '../../modules/themes';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-type Props = PropsFromRedux & {
+interface OwnProps {
   backgroundColor: string;
-};
+}
 
-const ThemeList: React.FC<Props> = ({ fetchThemes, themes }) => {
+const ThemeList: React.FC<OwnProps & PropsFromRedux> = ({
+  fetchThemes,
+  themes,
+}) => {
   console.log('--------------------', themes);
   return (
     <div>

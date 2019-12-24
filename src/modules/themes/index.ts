@@ -89,3 +89,5 @@ export const fetchThemes = (): FetchThemes => dispatch => {
       dispatch(themesSuccess(themes));
     });
 };
+
+// https://gist.github.com/milankorsos/ffb9d32755db0304545f92b11f0e4beb
