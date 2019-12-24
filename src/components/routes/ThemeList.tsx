@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/reducer';
-import { fetchThemes, themeListSelector } from '../../modules/themes';
+import { fetchThemeList, themeListSelector } from '../../modules/themes';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -10,15 +10,19 @@ interface OwnProps {
 }
 
 const ThemeList: React.FC<OwnProps & PropsFromRedux> = ({
-  fetchThemes,
+  fetchThemeList,
   themes,
 }) => {
   console.log('--------------------', themes);
+
+  const handleClickFetch = () => {
+    fetchThemeList();
+  };
+
   return (
     <div>
       <h1>Theme List</h1>
-      <button onClick={fetchThemes}>Fetch</button>
-
+      <button onClick={handleClickFetch}>Fetch</button>
       <ul>
         {themes.map(theme => (
           <li key={theme.id}>
@@ -36,7 +40,7 @@ const connector = connect(
     themes: themeListSelector(state),
   }),
   {
-    fetchThemes,
+    fetchThemeList,
   },
 );
 

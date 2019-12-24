@@ -1,4 +1,4 @@
-import { Reducer } from 'redux';
+import { Reducer, Dispatch } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../redux/reducer';
@@ -14,7 +14,7 @@ export const THEMES_FAILURE = `@@themes/themes/failure`;
 /**
  * Reducer
  * */
-export interface ThemesState {
+export interface ThemeState {
   readonly list: Theme[];
   readonly loading: boolean;
   readonly error: string;
@@ -24,12 +24,12 @@ export interface Theme {
   title: string;
   description: string;
 }
-const initialState: ThemesState = {
+const initialState: ThemeState = {
   list: [],
   loading: false,
   error: '',
 };
-const reducer: Reducer<ThemesState> = (state = initialState, action) => {
+const reducer: Reducer<ThemeState> = (state = initialState, action) => {
   switch (action.type) {
     case THEMES_REQUEST:
       return {
@@ -46,12 +46,12 @@ const reducer: Reducer<ThemesState> = (state = initialState, action) => {
       return state;
   }
 };
-export { reducer as themesReducer };
+export { reducer as themeReducer };
 
 /**
  * Selectors
  * */
-export const stateSelector = (state: RootState) => state.themes;
+export const stateSelector = (state: RootState) => state.theme;
 export const themeListSelector = createSelector(
   stateSelector,
   state => state.list,
@@ -63,31 +63,31 @@ export const themeListSelector = createSelector(
 interface ThemesRequest {
   type: typeof THEMES_REQUEST;
 }
-
 interface ThemesSuccess {
   type: typeof THEMES_SUCCESS;
   payload: Theme[];
 }
+type ActionType = ThemesRequest | ThemesSuccess;
 
-export type ThemesActionTypes = ThemesRequest | ThemesSuccess;
-
-const themesRequest = (): ThemesActionTypes => ({
-  type: THEMES_REQUEST,
-});
-
-const themesSuccess = (themes: Theme[]): ThemesActionTypes => ({
-  type: THEMES_SUCCESS,
-  payload: themes,
-});
-
-type FetchThemes = ThunkAction<void, ThemesState, void, ThemesActionTypes>;
-export const fetchThemes = (): FetchThemes => dispatch => {
-  dispatch(themesRequest);
-  return fetch(`${process.env.PUBLIC_URL}/mock/themes.json`)
-    .then(res => res.json())
-    .then(themes => {
-      dispatch(themesSuccess(themes));
+type FetchThemeList = ThunkAction<
+  Promise<ActionType>,
+  ThemeState,
+  void,
+  ActionType
+>;
+export const fetchThemeList = (): FetchThemeList => {
+  return async (dispatch: Dispatch<ActionType>) => {
+    dispatch({
+      type: THEMES_REQUEST,
     });
+    const themes = await fetch(
+      `${process.env.PUBLIC_URL}/mock/themes.json`,
+    ).then(res => res.json());
+    return dispatch({
+      type: THEMES_SUCCESS,
+      payload: themes,
+    });
+  };
 };
 
 // https://gist.github.com/milankorsos/ffb9d32755db0304545f92b11f0e4beb
