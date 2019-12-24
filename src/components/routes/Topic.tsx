@@ -6,7 +6,7 @@ import TopicCard from '../TopicCard';
 const StyledGrid = withStyles({
   root: {
     border: '1px solid green',
-    height: 'calc(100vh - 64px)',
+    height: 'calc(var(--vh, 1vh) * 100 - 64px)',
   },
 })(Grid);
 
