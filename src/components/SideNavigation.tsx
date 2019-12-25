@@ -8,7 +8,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { NavLink } from 'react-router-dom';
-import { Routes } from '../App';
 
 interface OwnProps {
   isOpen: boolean;
@@ -47,7 +46,7 @@ const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
             <ListItem
               button
               component={NavLink}
-              to={Routes.themeList}
+              to="/theme-list"
               exact
               onClick={onClose}
               activeClassName={classes.active}
@@ -60,7 +59,7 @@ const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
             <ListItem
               button
               component={NavLink}
-              to="/topic-list"
+              to="/theme/10/topic-list"
               exact
               onClick={onClose}
               activeClassName={classes.active}

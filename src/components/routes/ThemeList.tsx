@@ -2,6 +2,13 @@ import * as React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/reducer';
 import { fetchThemeList, themeListSelector } from '../../modules/themes';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import FolderOpen from '@material-ui/icons/FolderOpen';
+import { NavLink } from 'react-router-dom';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -15,22 +22,30 @@ const ThemeList: React.FC<OwnProps & PropsFromRedux> = ({
 }) => {
   console.log('--------------------', themes);
 
-  const handleClickFetch = () => {
+  React.useEffect(() => {
     fetchThemeList();
-  };
+  }, [fetchThemeList]);
 
   return (
     <div>
-      <h1>Theme List</h1>
-      <button onClick={handleClickFetch}>Fetch</button>
-      <ul>
+      <h2>Theme List</h2>
+      <List>
         {themes.map(theme => (
-          <li key={theme.id}>
-            <p>{theme.title}</p>
-            <p>{theme.description}</p>
-          </li>
+          <ListItem
+            key={theme.id}
+            button
+            component={NavLink}
+            to={`/theme/${theme.id}/topic-list`}
+          >
+            <ListItemAvatar>
+              <Avatar>
+                <FolderOpen />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={theme.title} secondary={theme.description} />
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   );
 };
