@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { RouteComponentProps } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,36 +16,44 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const TopicList = () => {
+interface Params {
+  id: string;
+}
+
+const TopicList: React.FC<RouteComponentProps<Params>> = props => {
   const classes = useStyles();
+  console.log(props);
 
   return (
-    <List className={classes.root}>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <DescriptionIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Topic" secondary="Description" />
-      </ListItem>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <DescriptionIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Topic" secondary="Description" />
-      </ListItem>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar>
-            <DescriptionIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="Topic" secondary="Description" />
-      </ListItem>
-    </List>
+    <>
+      <h2>theme id: {props.match.params.id}</h2>
+      <List className={classes.root}>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>
+              <DescriptionIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Topic" secondary="Description" />
+        </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>
+              <DescriptionIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Topic" secondary="Description" />
+        </ListItem>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>
+              <DescriptionIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Topic" secondary="Description" />
+        </ListItem>
+      </List>
+    </>
   );
 };
 
