@@ -1,15 +1,18 @@
+// This function will set custom css property '--vh'
+// This is necessary for the correct recognition of the mobile display.
 // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+
 const setProperyVh = () => {
-  const setVh = () => {
-    let vh = window.innerHeight * 0.01;
+  const setCssVariable = () => {
+    const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
   };
 
-  setVh();
+  setCssVariable();
 
-  window.addEventListener('resize', setVh);
+  window.addEventListener('resize', setCssVariable);
 
-  window.addEventListener('orientationchange', setVh);
+  window.addEventListener('orientationchange', setCssVariable);
 };
 
 export default setProperyVh;
