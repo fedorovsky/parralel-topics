@@ -56,32 +56,6 @@ const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
               </ListItemIcon>
               <ListItemText primary={'ThemeList'} />
             </ListItem>
-            <ListItem
-              button
-              component={NavLink}
-              to="/topics"
-              exact
-              onClick={onClose}
-              activeClassName={classes.active}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={'TopicList'} />
-            </ListItem>
-            <ListItem
-              button
-              component={NavLink}
-              to="/topic"
-              exact
-              onClick={onClose}
-              activeClassName={classes.active}
-            >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Topic'} />
-            </ListItem>
           </List>
           <Divider />
         </div>

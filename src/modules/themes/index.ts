@@ -5,15 +5,14 @@ import { RootState } from '../../redux/reducer';
 
 /**
  * Constants
- * */
-
-export const THEMES_REQUEST = `@@themes/themes/request`;
-export const THEMES_SUCCESS = `@@themes/themes/success`;
-export const THEMES_FAILURE = `@@themes/themes/failure`;
+ */
+export const THEMES_REQUEST = `@@themes/THEMES_REQUEST`;
+export const THEMES_SUCCESS = `@@themes/THEMES_SUCCESS`;
+export const THEMES_FAILURE = `@@themes/THEMES_FAILURE`;
 
 /**
  * Reducer
- * */
+ */
 export interface ThemeState {
   readonly list: Theme[];
   readonly loading: boolean;
@@ -46,11 +45,11 @@ const reducer: Reducer<ThemeState> = (state = initialState, action) => {
       return state;
   }
 };
-export { reducer as themeReducer };
+export { reducer as themesReducer };
 
 /**
  * Selectors
- * */
+ */
 export const stateSelector = (state: RootState) => state.themes;
 export const themeListSelector = createSelector(
   stateSelector,
@@ -59,7 +58,7 @@ export const themeListSelector = createSelector(
 
 /**
  * Action Creators
- * */
+ */
 interface ThemesRequest {
   type: typeof THEMES_REQUEST;
 }
