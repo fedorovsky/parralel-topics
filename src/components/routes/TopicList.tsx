@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import DescriptionIcon from '@material-ui/icons/Description';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,19 +17,19 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface Params {
-  id: string;
+interface RouterParams {
+  themeId: string;
 }
 
-const TopicList: React.FC<RouteComponentProps<Params>> = props => {
+const TopicList: React.FC<RouteComponentProps<RouterParams>> = props => {
   const classes = useStyles();
   console.log(props);
 
   return (
     <>
-      <h2>theme id: {props.match.params.id}</h2>
+      <h2>theme id: {props.match.params.themeId}</h2>
       <List className={classes.root}>
-        <ListItem button>
+        <ListItem button component={NavLink} to={`/theme/10/topic/15`}>
           <ListItemAvatar>
             <Avatar>
               <DescriptionIcon />

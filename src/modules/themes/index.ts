@@ -51,7 +51,7 @@ export { reducer as themeReducer };
 /**
  * Selectors
  * */
-export const stateSelector = (state: RootState) => state.theme;
+export const stateSelector = (state: RootState) => state.themes;
 export const themeListSelector = createSelector(
   stateSelector,
   state => state.list,

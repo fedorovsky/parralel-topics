@@ -35,7 +35,7 @@ const ThemeList: React.FC<OwnProps & PropsFromRedux> = ({
             key={theme.id}
             button
             component={NavLink}
-            to={`/theme/${theme.id}/topic-list`}
+            to={`/theme/${theme.id}/topics`}
           >
             <ListItemAvatar>
               <Avatar>
