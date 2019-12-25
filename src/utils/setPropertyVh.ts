@@ -1,6 +1,12 @@
-// This function will set custom css property '--vh'
-// This is necessary for the correct recognition of the mobile display.
-// https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+/**
+ * This function will set custom css property '--vh'
+ * This is necessary for the correct recognition of the mobile display.
+ * https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+ *  .my-element {
+      height: 100vh;
+      height: calc(var(--vh, 1vh) * 100);
+    }
+ */
 
 const setProperyVh = () => {
   const setCssVariable = () => {
