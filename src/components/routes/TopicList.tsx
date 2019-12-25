@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import { RouteComponentProps } from 'react-router-dom';
+import { fetchTopicList, topicListSelector } from '../../modules/topics';
+import { RootState } from '../../redux/reducer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,41 +24,49 @@ interface RouterParams {
   themeId: string;
 }
 
-const TopicList: React.FC<RouteComponentProps<RouterParams>> = props => {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const TopicList: React.FC<RouteComponentProps<RouterParams> &
+  PropsFromRedux> = ({ fetchTopicList, topics, match }) => {
   const classes = useStyles();
-  console.log(props);
+
+  React.useEffect(() => {
+    console.log('MOUNT TOPIC LIST');
+    console.log('ROUTER MATCH', match);
+    fetchTopicList(match.params.themeId);
+  }, [fetchTopicList, match]);
 
   return (
     <>
-      <h2>theme id: {props.match.params.themeId}</h2>
+      <h2>theme id: {match.params.themeId}</h2>
       <List className={classes.root}>
-        <ListItem button component={NavLink} to={`/theme/10/topic/15`}>
-          <ListItemAvatar>
-            <Avatar>
-              <DescriptionIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Topic" secondary="Description" />
-        </ListItem>
-        <ListItem button>
-          <ListItemAvatar>
-            <Avatar>
-              <DescriptionIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Topic" secondary="Description" />
-        </ListItem>
-        <ListItem button>
-          <ListItemAvatar>
-            <Avatar>
-              <DescriptionIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Topic" secondary="Description" />
-        </ListItem>
+        {topics.map(topic => (
+          <ListItem
+            key={topic.id}
+            button
+            component={NavLink}
+            to={`/theme/${match.params.themeId}/topic/${topic.id}`}
+          >
+            <ListItemAvatar>
+              <Avatar>
+                <DescriptionIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={topic.title} secondary={topic.description} />
+          </ListItem>
+        ))}
       </List>
     </>
   );
 };
 
-export default TopicList;
+const connector = connect(
+  (state: RootState) => ({
+    topics: topicListSelector(state),
+  }),
+  {
+    fetchTopicList,
+  },
+);
+
+export default connector(TopicList);
