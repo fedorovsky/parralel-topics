@@ -6,6 +6,7 @@ import {
   Theme,
 } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { RouteComponentProps } from 'react-router-dom';
 import useSyncScroll from 'react-use-sync-scroll';
 
 // const StyledGrid = withStyles({
@@ -34,7 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Topic = () => {
+interface RouterParams {
+  themeId: string;
+  topicId: string;
+}
+
+const Topic: React.FC<RouteComponentProps<RouterParams>> = props => {
   const classes = useStyles();
 
   const ref1 = React.useRef(null);
@@ -43,6 +49,9 @@ const Topic = () => {
   const refsRef = React.useRef([ref1, ref2]);
 
   useSyncScroll(refsRef, { vertical: true, horizontal: false });
+
+  console.log('themeId', props.match.params.themeId);
+  console.log('topicId', props.match.params.topicId);
 
   return (
     <div className={classes.root}>

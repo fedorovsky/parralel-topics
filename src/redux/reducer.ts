@@ -6,10 +6,10 @@ import history from '../history';
 // The top-level state object
 export interface RootState {
   router: RouterState;
-  theme: ThemeState;
+  themes: ThemeState;
 }
 
 export default combineReducers({
   router: connectRouter(history),
-  theme: themeReducer,
+  themes: themeReducer,
 });

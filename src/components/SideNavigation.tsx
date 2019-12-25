@@ -46,7 +46,7 @@ const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
             <ListItem
               button
               component={NavLink}
-              to="/theme-list"
+              to="/themes"
               exact
               onClick={onClose}
               activeClassName={classes.active}
@@ -59,7 +59,7 @@ const SideNavigation: React.FC<OwnProps> = ({ isOpen, onClose }) => {
             <ListItem
               button
               component={NavLink}
-              to="/theme/10/topic-list"
+              to="/topics"
               exact
               onClick={onClose}
               activeClassName={classes.active}
