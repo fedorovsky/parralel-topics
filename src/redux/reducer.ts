@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { connectRouter, RouterState } from 'connected-react-router';
-import { themesReducer, ThemeState } from '../modules/themes';
-import { topicsReducer, TopicsState } from '../modules/topics';
+import { themesReducer, ThemeState } from 'modules/themes';
+import { topicsReducer, TopicsState } from 'modules/topics';
 import history from '../history';
 
 // The top-level state object

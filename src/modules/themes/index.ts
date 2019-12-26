@@ -1,7 +1,7 @@
 import { Reducer, Dispatch } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
-import { RootState } from '../../redux/reducer';
+import { RootState } from 'redux/reducer';
 
 /**
  * Constants

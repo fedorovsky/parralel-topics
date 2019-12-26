@@ -1,15 +1,15 @@
 import { Reducer, Dispatch } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
-import { RootState } from '../../redux/reducer';
+import { RootState } from 'redux/reducer';
 
 /**
  * Constants
  */
-export const TOPICS_LIST_REQUEST = `@@topics/TOPICS_LIST_REQUEST`;
-export const TOPICS_LIST_SUCCESS = `@@topics/TOPICS_LIST_SUCCESS`;
-export const TOPICS_LIST_FAILURE = `@@topics/TOPICS_LIST_FAILURE`;
-export const TOPICS_LIST_CLEAN = `@@topics/TOPICS_LIST_CLEAN`;
+export const TOPIC_LIST_REQUEST = `@@topics/TOPIC_LIST_REQUEST`;
+export const TOPIC_LIST_SUCCESS = `@@topics/TOPIC_LIST_SUCCESS`;
+export const TOPIC_LIST_FAILURE = `@@topics/TOPIC_LIST_FAILURE`;
+export const TOPIC_LIST_CLEAN = `@@topics/TOPIC_LIST_CLEAN`;
 
 /**
  * Reducer
@@ -31,18 +31,18 @@ const initialState: TopicsState = {
 };
 const reducer: Reducer<TopicsState> = (state = initialState, action) => {
   switch (action.type) {
-    case TOPICS_LIST_REQUEST:
+    case TOPIC_LIST_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case TOPICS_LIST_SUCCESS:
+    case TOPIC_LIST_SUCCESS:
       return {
         ...state,
         list: action.payload,
         loading: false,
       };
-    case TOPICS_LIST_CLEAN:
+    case TOPIC_LIST_CLEAN:
       return {
         ...state,
         list: [],
@@ -66,14 +66,14 @@ export const topicListSelector = createSelector(
  * Action Creators
  */
 interface TopicsListRequest {
-  type: typeof TOPICS_LIST_REQUEST;
+  type: typeof TOPIC_LIST_REQUEST;
 }
 interface TopicsListSuccess {
-  type: typeof TOPICS_LIST_SUCCESS;
+  type: typeof TOPIC_LIST_SUCCESS;
   payload: Topic[];
 }
 interface TopicsListClean {
-  type: typeof TOPICS_LIST_CLEAN;
+  type: typeof TOPIC_LIST_CLEAN;
 }
 type ActionType = TopicsListRequest | TopicsListSuccess | TopicsListClean;
 
@@ -81,16 +81,16 @@ type FetchTopicList = ThunkAction<void, TopicsState, void, ActionType>;
 export const fetchTopicList = (themeId: string): FetchTopicList => {
   return async (dispatch: Dispatch<ActionType>) => {
     dispatch({
-      type: TOPICS_LIST_CLEAN,
+      type: TOPIC_LIST_CLEAN,
     });
     dispatch({
-      type: TOPICS_LIST_REQUEST,
+      type: TOPIC_LIST_REQUEST,
     });
     const topics = await fetch(
       `${process.env.PUBLIC_URL}/mock/topics/list-id-${themeId}.json`,
     ).then(res => res.json());
     dispatch({
-      type: TOPICS_LIST_SUCCESS,
+      type: TOPIC_LIST_SUCCESS,
       payload: topics,
     });
   };
