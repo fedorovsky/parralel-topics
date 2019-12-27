@@ -28,7 +28,10 @@ const initialState: ThemeState = {
   loading: false,
   error: '',
 };
-const reducer: Reducer<ThemeState> = (state = initialState, action) => {
+const reducer: Reducer<ThemeState> = (
+  state = initialState,
+  action: ActionType,
+) => {
   switch (action.type) {
     case THEMES_REQUEST:
       return {
@@ -50,7 +53,7 @@ export { reducer as themesReducer };
 /**
  * Selectors
  */
-export const stateSelector = (state: RootState) => state.themes;
+export const stateSelector = (state: RootState): ThemeState => state.themes;
 export const themeListSelector = createSelector(
   stateSelector,
   state => state.list,
