@@ -10,6 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom';
+import AppContext from '../AppContext';
 import SideNavigation from './SideNavigation';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,6 +33,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const isLogin = false;
+  const { pageTitle } = React.useContext(AppContext);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -58,8 +60,12 @@ const Header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Parallel Topics
+          <Typography
+            variant="h6"
+            className={classes.title}
+            onClick={() => setOpenDrawer(true)}
+          >
+            {pageTitle}
           </Typography>
           {isLogin ? (
             <div>
