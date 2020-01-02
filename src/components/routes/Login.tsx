@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,15 +22,18 @@ const Login = () => {
       <TextField
         className={classes.field}
         fullWidth
-        label="Label"
+        label="Login"
         variant="outlined"
       />
       <TextField
         className={classes.field}
         fullWidth
-        label="Label"
+        label="Password"
         variant="outlined"
       />
+      <Button variant="contained" color="primary" size="large" fullWidth>
+        Login
+      </Button>
     </form>
   );
 };
