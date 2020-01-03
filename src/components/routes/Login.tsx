@@ -30,6 +30,7 @@ const Login = () => {
         fullWidth
         label="Password"
         variant="outlined"
+        type="password"
       />
       <Button variant="contained" color="primary" size="large" fullWidth>
         Login
