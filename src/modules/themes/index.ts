@@ -1,4 +1,4 @@
-import { Reducer, Dispatch } from 'redux';
+import { Reducer } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from 'redux/reducer';
@@ -71,9 +71,21 @@ interface ThemesSuccess {
 }
 type ActionType = ThemesRequest | ThemesSuccess;
 
-type FetchThemeList = ThunkAction<void, ThemeState, void, ActionType>;
-export const fetchThemeList = (): FetchThemeList => {
-  return async (dispatch: Dispatch<ActionType>) => {
+type ThunkResult<R> = ThunkAction<R, ThemeState, void, ActionType>;
+
+const fetchPosts = (): ThunkResult<void> => {
+  return async dispatch => {
+    const posts = await fetch('https://jsonplaceholder.typicode.com/posts');
+    dispatch({
+      type: THEMES_REQUEST,
+    });
+    console.log('[POSTS]', posts);
+  };
+};
+
+export const fetchThemeList = (): ThunkResult<void> => {
+  return async dispatch => {
+    dispatch(fetchPosts());
     dispatch({
       type: THEMES_REQUEST,
     });
