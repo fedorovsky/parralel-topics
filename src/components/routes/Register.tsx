@@ -22,11 +22,13 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const Register: React.FC<PropsFromRedux> = ({ register }) => {
   const classes = useStyles();
+  const [name, setName] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
 
   const handleRegister = () => {
     register({
+      name: name,
       email: email,
       password: password,
     });
@@ -37,10 +39,18 @@ const Register: React.FC<PropsFromRedux> = ({ register }) => {
       <TextField
         className={classes.field}
         fullWidth
+        value={name}
+        onChange={e => setName(e.target.value)}
+        label="Name"
+        variant="outlined"
+        type="text"
+      />
+      <TextField
+        className={classes.field}
+        fullWidth
         value={email}
         onChange={e => setEmail(e.target.value)}
         label="Email"
-        name="email"
         variant="outlined"
         type="text"
       />
@@ -50,7 +60,6 @@ const Register: React.FC<PropsFromRedux> = ({ register }) => {
         value={password}
         onChange={e => setPassword(e.target.value)}
         label="Password"
-        name="password"
         variant="outlined"
         type="password"
       />

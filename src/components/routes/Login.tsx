@@ -22,7 +22,7 @@ const Login = () => {
       <TextField
         className={classes.field}
         fullWidth
-        label="Login"
+        label="Emai"
         variant="outlined"
       />
       <TextField

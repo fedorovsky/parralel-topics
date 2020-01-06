@@ -81,6 +81,7 @@ type ActionType = RegisterRequest | RegisterSuccess | RegisterFailure;
 type ThunkResult<R> = ThunkAction<R, AuthState, void, ActionType>;
 
 export const register = (data: {
+  name: string;
   email: string;
   password: string;
 }): ThunkResult<Promise<void>> => {
