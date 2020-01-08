@@ -3,7 +3,7 @@ import { connectRouter } from 'connected-react-router';
 import { themesReducer } from 'modules/themes';
 import { topicsReducer } from 'modules/topics';
 import { authReducer } from 'modules/auth';
-import history from '../history';
+import history from 'utils/history';
 
 export const rootReducer = combineReducers({
   router: connectRouter(history),

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './redux/store';
 import theme from './theme';
-import history from './history';
+import history from 'utils/history';
 import * as serviceWorker from './serviceWorker';
 import setPropertyVh from './utils/setPropertyVh';
 
