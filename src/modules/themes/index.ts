@@ -71,7 +71,7 @@ interface ThemesSuccess {
 }
 type ActionType = ThemesRequest | ThemesSuccess;
 
-type ThunkResult<R> = ThunkAction<R, ThemeState, void, ActionType>;
+type ThunkResult<R> = ThunkAction<R, RootState, void, ActionType>;
 
 const fetchPosts = (): ThunkResult<void> => {
   return async dispatch => {
