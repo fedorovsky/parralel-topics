@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from 'redux/reducer';
+import axios from 'axios';
 
 /**
  * Constants
@@ -47,6 +48,8 @@ const reducer: Reducer<AuthState> = (
     case REGISTER_FAILURE:
       return {
         ...state,
+        error: action.payload,
+        isLoading: false,
       };
     default:
       return state;
@@ -75,11 +78,13 @@ interface RegisterSuccess {
 }
 interface RegisterFailure {
   type: typeof REGISTER_FAILURE;
+  payload: string;
 }
 type ActionType = RegisterRequest | RegisterSuccess | RegisterFailure;
 
 type ThunkResult<R> = ThunkAction<R, AuthState, void, ActionType>;
 
+// 109.86.230.100
 export const register = (data: {
   name: string;
   email: string;
@@ -89,19 +94,22 @@ export const register = (data: {
     dispatch({
       type: REGISTER_REQUEST,
     });
-    const user = await fetch(`http://109.86.230.100:5000/auth/register`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then(res => res.json());
-    console.log('REGISTER', user);
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: user,
-    });
+    axios
+      .post<User>(`http://109.86.230.100:5000/auth/register`, data)
+      .then(response => {
+        console.log('REGISTER', response.data);
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        console.log('ERROR REGISTER', error.response.data);
+        dispatch({
+          type: REGISTER_FAILURE,
+          payload: error.response.data.message.name,
+        });
+      });
   };
 };
 
