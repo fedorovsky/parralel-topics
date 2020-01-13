@@ -107,6 +107,8 @@ type ActionType =
 
 type ThunkResult<R> = ThunkAction<R, AuthState, void, ActionType>;
 
+const BASE_URL = `http://109.86.230.100:5000`;
+
 // 109.86.230.100
 export const register = (data: {
   name: string;
@@ -118,7 +120,7 @@ export const register = (data: {
       type: REGISTER_REQUEST,
     });
     axios
-      .post<User>(`http://109.86.230.100:5000/auth/register`, data)
+      .post<User>(`${BASE_URL}/auth/register`, data)
       .then(response => {
         console.log('REGISTER', response.data);
         dispatch({
@@ -145,7 +147,7 @@ export const login = (data: {
       type: LOGIN_REQUEST,
     });
     axios
-      .post<User>(`http://109.86.230.100:5000/auth/login`, data)
+      .post<User>(`${BASE_URL}/auth/login`, data)
       .then(response => {
         console.log('LOGIN', response.data);
         dispatch({
