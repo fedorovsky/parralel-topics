@@ -28,9 +28,9 @@ const initialState: ThemeState = {
   loading: false,
   error: '',
 };
-const reducer: Reducer<ThemeState> = (
+const reducer: Reducer<ThemeState, ActionType> = (
   state = initialState,
-  action: ActionType,
+  action,
 ) => {
   switch (action.type) {
     case THEMES_REQUEST:
