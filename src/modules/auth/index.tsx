@@ -9,7 +9,10 @@ import axios from 'axios';
  */
 export const REGISTER_REQUEST = `@@auth/REGISTER_REQUEST`;
 export const REGISTER_SUCCESS = `@@auth/REGISTER_SUCCESS`;
-export const REGISTER_FAILURE = `@@auth/THEMES_FAILURE`;
+export const REGISTER_FAILURE = `@@auth/REGISTER_FAILURE`;
+export const LOGIN_REQUEST = `@@auth/LOGIN_REQUEST`;
+export const LOGIN_SUCCESS = `@@auth/LOGIN_SUCCESS`;
+export const LOGIN_FAILURE = `@@auth/LOGIN_FAILURE`;
 
 /**
  * Reducer
@@ -35,17 +38,20 @@ const reducer: Reducer<AuthState> = (
 ) => {
   switch (action.type) {
     case REGISTER_REQUEST:
+    case LOGIN_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
     case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         user: action.payload,
         isLoading: false,
       };
     case REGISTER_FAILURE:
+    case LOGIN_FAILURE:
       return {
         ...state,
         error: action.payload,
@@ -80,7 +86,24 @@ interface RegisterFailure {
   type: typeof REGISTER_FAILURE;
   payload: string;
 }
-type ActionType = RegisterRequest | RegisterSuccess | RegisterFailure;
+interface LoginRequest {
+  type: typeof LOGIN_REQUEST;
+}
+interface LoginSuccess {
+  type: typeof LOGIN_SUCCESS;
+  payload: User;
+}
+interface LoginFailure {
+  type: typeof LOGIN_FAILURE;
+  payload: string;
+}
+type ActionType =
+  | RegisterRequest
+  | RegisterSuccess
+  | RegisterFailure
+  | LoginRequest
+  | LoginSuccess
+  | LoginFailure;
 
 type ThunkResult<R> = ThunkAction<R, AuthState, void, ActionType>;
 
@@ -104,9 +127,36 @@ export const register = (data: {
         });
       })
       .catch(error => {
-        console.log('ERROR REGISTER', error.response.data);
+        console.log('REGISTER ERROR', error.response.data);
         dispatch({
           type: REGISTER_FAILURE,
+          payload: error.response.data.message.name,
+        });
+      });
+  };
+};
+
+export const login = (data: {
+  email: string;
+  password: string;
+}): ThunkResult<Promise<void>> => {
+  return async dispatch => {
+    dispatch({
+      type: LOGIN_REQUEST,
+    });
+    axios
+      .post<User>(`http://109.86.230.100:5000/auth/login`, data)
+      .then(response => {
+        console.log('LOGIN', response.data);
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: response.data,
+        });
+      })
+      .catch(error => {
+        console.log('LOGIN ERROR', error.response.data);
+        dispatch({
+          type: LOGIN_FAILURE,
           payload: error.response.data.message.name,
         });
       });
