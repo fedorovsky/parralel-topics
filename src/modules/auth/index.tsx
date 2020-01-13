@@ -149,7 +149,7 @@ export const login = (data: {
       .then(response => {
         console.log('LOGIN', response.data);
         dispatch({
-          type: REGISTER_SUCCESS,
+          type: LOGIN_SUCCESS,
           payload: response.data,
         });
       })
