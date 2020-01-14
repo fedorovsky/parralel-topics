@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { createSelector } from 'reselect';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from 'redux/reducer';
+import { push, RouterAction } from 'connected-react-router';
 import axios from 'axios';
 
 /**
@@ -13,6 +14,7 @@ export const REGISTER_FAILURE = `@@auth/REGISTER_FAILURE`;
 export const LOGIN_REQUEST = `@@auth/LOGIN_REQUEST`;
 export const LOGIN_SUCCESS = `@@auth/LOGIN_SUCCESS`;
 export const LOGIN_FAILURE = `@@auth/LOGIN_FAILURE`;
+export const LOGOUT = `@@auth/LOGOUT`;
 
 /**
  * Reducer
@@ -57,6 +59,11 @@ const reducer: Reducer<AuthState> = (
         error: action.payload,
         isLoading: false,
       };
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+      };
     default:
       return state;
   }
@@ -97,13 +104,18 @@ interface LoginFailure {
   type: typeof LOGIN_FAILURE;
   payload: string;
 }
+interface Logout {
+  type: typeof LOGOUT;
+}
 type ActionType =
   | RegisterRequest
   | RegisterSuccess
   | RegisterFailure
   | LoginRequest
   | LoginSuccess
-  | LoginFailure;
+  | LoginFailure
+  | Logout
+  | RouterAction;
 
 type ThunkResult<R> = ThunkAction<R, AuthState, void, ActionType>;
 
@@ -163,6 +175,11 @@ export const login = (data: {
         });
       });
   };
+};
+
+export const logout = (): ThunkResult<void> => dispatch => {
+  dispatch({ type: LOGOUT });
+  dispatch(push('/'));
 };
 
 // https://gist.github.com/milankorsos/ffb9d32755db0304545f92b11f0e4beb

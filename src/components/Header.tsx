@@ -10,6 +10,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { RootState } from 'redux/reducer';
+import { isAuthorizedSelector, logout } from 'modules/auth';
 import AppContext from '../AppContext';
 import SideNavigation from './SideNavigation';
 
@@ -27,12 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Header = () => {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Header: React.FC<PropsFromRedux> = ({ isAuthorized, logout }) => {
   const classes = useStyles();
   const [isOpenDrawer, setOpenDrawer] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const isLogin = false;
   const { pageTitle } = React.useContext(AppContext);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -67,7 +71,7 @@ const Header = () => {
           >
             {pageTitle}
           </Typography>
-          {isLogin ? (
+          {isAuthorized ? (
             <div>
               <IconButton
                 aria-label="account of current user"
@@ -95,6 +99,7 @@ const Header = () => {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
               </Menu>
             </div>
           ) : (
@@ -108,4 +113,13 @@ const Header = () => {
   );
 };
 
-export default Header;
+const connector = connect(
+  (state: RootState) => ({
+    isAuthorized: isAuthorizedSelector(state),
+  }),
+  {
+    logout,
+  },
+);
+
+export default connector(Header);
