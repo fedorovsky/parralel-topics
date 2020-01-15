@@ -6,9 +6,11 @@ import { RootState } from 'redux/reducer';
 /**
  * Constants
  */
-export const THEMES_REQUEST = `@@themes/THEMES_REQUEST`;
-export const THEMES_SUCCESS = `@@themes/THEMES_SUCCESS`;
-export const THEMES_FAILURE = `@@themes/THEMES_FAILURE`;
+export enum ACTION {
+  LIST_REQUEST = '@@themes/LIST_REQUEST',
+  LIST_SUCCESS = '@@themes/LIST_SUCCESS',
+  LIST_FAILURE = '@@themes/LIST_FAILURE',
+}
 
 /**
  * Reducer
@@ -33,12 +35,12 @@ const reducer: Reducer<ThemeState, ActionType> = (
   action,
 ) => {
   switch (action.type) {
-    case THEMES_REQUEST:
+    case ACTION.LIST_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case THEMES_SUCCESS:
+    case ACTION.LIST_SUCCESS:
       return {
         ...state,
         list: action.payload,
@@ -63,10 +65,10 @@ export const themeListSelector = createSelector(
  * Action Creators
  */
 interface ThemesRequest {
-  type: typeof THEMES_REQUEST;
+  type: typeof ACTION.LIST_REQUEST;
 }
 interface ThemesSuccess {
-  type: typeof THEMES_SUCCESS;
+  type: typeof ACTION.LIST_SUCCESS;
   payload: Theme[];
 }
 type ActionType = ThemesRequest | ThemesSuccess;
@@ -77,7 +79,7 @@ const fetchPosts = (): ThunkResult<void> => {
   return async dispatch => {
     const posts = await fetch('https://jsonplaceholder.typicode.com/posts');
     dispatch({
-      type: THEMES_REQUEST,
+      type: ACTION.LIST_REQUEST,
     });
     console.log('[POSTS]', posts);
   };
@@ -87,13 +89,13 @@ export const fetchThemeList = (): ThunkResult<void> => {
   return async dispatch => {
     dispatch(fetchPosts());
     dispatch({
-      type: THEMES_REQUEST,
+      type: ACTION.LIST_REQUEST,
     });
     const themes = await fetch(
       `${process.env.PUBLIC_URL}/mock/themes.json`,
     ).then(res => res.json());
     dispatch({
-      type: THEMES_SUCCESS,
+      type: ACTION.LIST_SUCCESS,
       payload: themes,
     });
   };
