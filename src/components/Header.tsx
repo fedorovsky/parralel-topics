@@ -35,16 +35,18 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 const Header: React.FC<PropsFromRedux> = ({ isAuthorized, logout }) => {
   const classes = useStyles();
   const [isOpenDrawer, setOpenDrawer] = React.useState<boolean>(false);
+  const [isOpenUserMenu, setUserMenuState] = React.useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
   const { pageTitle } = React.useContext(AppContext);
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleLogout = async () => {
+    await logout();
+    setUserMenuState(false);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleOpenUserMeu = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(e.currentTarget);
+    setUserMenuState(true);
   };
 
   return (
@@ -77,7 +79,7 @@ const Header: React.FC<PropsFromRedux> = ({ isAuthorized, logout }) => {
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleMenu}
+                onClick={handleOpenUserMeu}
                 color="inherit"
               >
                 <AccountCircle />
@@ -94,12 +96,16 @@ const Header: React.FC<PropsFromRedux> = ({ isAuthorized, logout }) => {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
-                open={open}
-                onClose={handleClose}
+                open={isOpenUserMenu}
+                onClose={() => setUserMenuState(false)}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem onClick={() => setUserMenuState(false)}>
+                  Profile
+                </MenuItem>
+                <MenuItem onClick={() => setUserMenuState(false)}>
+                  My account
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           ) : (

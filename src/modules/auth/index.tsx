@@ -177,9 +177,13 @@ export const login = (data: {
   };
 };
 
-export const logout = (): ThunkResult<void> => dispatch => {
+export const logout = (): ThunkResult<Promise<void>> => dispatch => {
+  const promise = new Promise<void>(resolve =>
+    setTimeout(() => resolve(), 300),
+  );
   dispatch({ type: LOGOUT });
   dispatch(push('/'));
+  return promise;
 };
 
 // https://gist.github.com/milankorsos/ffb9d32755db0304545f92b11f0e4beb
