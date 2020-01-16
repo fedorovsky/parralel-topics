@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Header from 'components/Header';
-import ThemeList from 'components/routes/ThemeList';
-import TopicList from 'components/routes/TopicList';
-import Topic from 'components/routes/Topic';
-import Home from 'components/routes/Home';
-import Login from 'components/routes/Login';
-import Register from 'components/routes/Register';
+import ThemeList from 'routes/ThemeList';
+import TopicList from 'routes/TopicList';
+import Topic from 'routes/Topic';
+import Home from 'routes/Home';
+import Login from 'routes/Login';
+import Register from 'routes/Register';
 import Container from '@material-ui/core/Container';
 import { Switch, Route } from 'react-router-dom';
 import AppContext from './AppContext';
