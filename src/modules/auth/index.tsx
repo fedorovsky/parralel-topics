@@ -166,6 +166,7 @@ export const login = (data: {
           type: LOGIN_SUCCESS,
           payload: response.data,
         });
+        dispatch(push('/'));
       })
       .catch(error => {
         console.log('LOGIN ERROR', error.response.data);
