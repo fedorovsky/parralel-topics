@@ -78,6 +78,7 @@ export const isAuthorizedSelector = createSelector(
   stateSelector,
   state => !!state.user,
 );
+export const getError = createSelector(stateSelector, state => state.error);
 
 /**
  * Action Creators
@@ -144,7 +145,7 @@ export const register = (data: {
         console.log('REGISTER ERROR', error.response.data);
         dispatch({
           type: REGISTER_FAILURE,
-          payload: error.response.data.message.name,
+          payload: error.response.data.message,
         });
       });
   };
@@ -172,7 +173,7 @@ export const login = (data: {
         console.log('LOGIN ERROR', error.response.data);
         dispatch({
           type: LOGIN_FAILURE,
-          payload: error.response.data.message.name,
+          payload: error.response.data.message,
         });
       });
   };
