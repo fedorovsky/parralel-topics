@@ -4,6 +4,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Alert } from '@material-ui/lab';
+import Link from '@material-ui/core/Link';
+import { NavLink } from 'react-router-dom';
 import { RootState } from 'redux/reducer';
 import { login, getError } from 'modules/auth';
 
@@ -64,6 +66,9 @@ const Login: React.FC<PropsFromRedux> = ({ login, error }) => {
           Login
         </Button>
       </form>
+      <Link component={NavLink} to="/register" exact>
+        Register
+      </Link>
     </div>
   );
 };
