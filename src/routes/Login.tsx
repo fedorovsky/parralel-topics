@@ -43,15 +43,19 @@ const Login: React.FC<PropsFromRedux> = ({ login, error }) => {
           className={classes.field}
           fullWidth
           value={email}
-          onChange={e => setEmail(e.target.value)}
-          label="Emai"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+          label="Email"
           variant="outlined"
         />
         <TextField
           className={classes.field}
           fullWidth
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           label="Password"
           variant="outlined"
           type="password"
