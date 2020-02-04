@@ -145,7 +145,7 @@ export const register = (data: {
         console.log('REGISTER ERROR', error.response.data);
         dispatch({
           type: REGISTER_FAILURE,
-          payload: error.response.data.message,
+          payload: 'Register error',
         });
       });
   };
